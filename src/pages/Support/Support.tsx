@@ -1,7 +1,8 @@
+import { Typography } from "@mui/material";
 import React from "react";
 
 const Support: React.FC = () => {
-  return <div>Support</div>;
+  return <Typography variant="h1">Support</Typography>;
 };
 
 export default Support;
