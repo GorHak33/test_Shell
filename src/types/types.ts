@@ -7,10 +7,6 @@ export interface FormValues {
   notes: string;
 }
 
-export interface AnimeTitle {
-  english: string;
-}
-
 export interface typePost {
   id: number;
   title: string;
