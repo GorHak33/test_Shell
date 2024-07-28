@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import FormComponent from "./FormComponent";
-import { Anime, FormValues } from "../../types/types";
+import { FormValues } from "../../types/types";
 
 const meta = {
   title: "Example/FormComponent",

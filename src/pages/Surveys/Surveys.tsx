@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Typography } from "@mui/material";
+import React, { useMemo, useState } from "react";
+import { Box, CircularProgress, Typography } from "@mui/material";
 
 import { useMutation, useQuery } from "@apollo/client";
 import { GET_ANIME } from "../../gql/queries/getAnime";
@@ -16,12 +16,12 @@ const Surveys: React.FC = () => {
     data,
   } = useQuery(GET_ANIME);
 
-  const animeItems = data?.Page.media.slice(0, 7);
+  const animeItems = useMemo(() => data?.Page.media.slice(0, 7), [data]);
+
   const [saveTextActivity, { loading, error }] =
     useMutation(SAVE_TEXT_ACTIVITY);
 
-  if (queryLoading)
-    return <Typography variant="h1">Loading data...</Typography>;
+  if (queryLoading) return <CircularProgress />;
 
   if (queryError)
     return (
