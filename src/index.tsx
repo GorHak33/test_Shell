@@ -13,7 +13,7 @@ import {
 
 // Create an httpLink
 const httpLink = new HttpLink({
-  uri: "https://graphql.anilist.co",
+  uri: "https://graphqlzero.almansi.me/api",
 });
 
 // Create an authLink to attach the Authorization header

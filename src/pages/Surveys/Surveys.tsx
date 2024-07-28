@@ -1,9 +1,9 @@
 import React, { useMemo, useState } from "react";
-import { Box, CircularProgress, Typography } from "@mui/material";
+import { CircularProgress, Typography } from "@mui/material";
 
 import { useMutation, useQuery } from "@apollo/client";
-import { GET_ANIME } from "../../gql/queries/getAnime";
-import { SAVE_TEXT_ACTIVITY } from "../../gql/mutations/createSurvey";
+import { GET_POSTS } from "../../gql/queries/getPosts";
+import { CREATE_POST } from "../../gql/mutations/createPost";
 import { FormValues } from "../../types/types";
 import FormComponent from "../../components/Form/FormComponent";
 
@@ -14,12 +14,12 @@ const Surveys: React.FC = () => {
     loading: queryLoading,
     error: queryError,
     data,
-  } = useQuery(GET_ANIME);
+  } = useQuery(GET_POSTS);
 
-  const animeItems = useMemo(() => data?.Page.media.slice(0, 7), [data]);
+  const posts = useMemo(() => data?.posts.data.slice(0, 7), [data]);
 
-  const [saveTextActivity, { loading, error }] =
-    useMutation(SAVE_TEXT_ACTIVITY);
+  const [createPost, { loading: createLoading, error }] =
+    useMutation(CREATE_POST);
 
   if (queryLoading) return <CircularProgress />;
 
@@ -30,15 +30,14 @@ const Surveys: React.FC = () => {
       </Typography>
     );
 
-  // you can comment mutation functionality and see how form submission works with his effects, with mutation we will get error unauthorized because for the mutating data
-  // api requires to have an account in their platform, however the mutation is correct and will work fine if we have an account.
+  if (createLoading) return <CircularProgress />;
   const handleSubmit = async (values: FormValues, { resetForm }: any) => {
     try {
-      await saveTextActivity({
+      await createPost({
         variables: {
           id: values.selectedOption,
-          text: values.surveyName,
-          locked: false,
+          title: values.surveyName,
+          body: values.surveyName,
         },
       });
       setIsSubmitted(true);
@@ -49,13 +48,12 @@ const Surveys: React.FC = () => {
     } catch (error) {
       console.error("Submission error:", error);
     }
-    // console.log(values)
   };
 
   return (
     <FormComponent
       onSubmit={handleSubmit}
-      animeItems={animeItems}
+      posts={posts}
       isSubmitted={isSubmitted}
     />
   );

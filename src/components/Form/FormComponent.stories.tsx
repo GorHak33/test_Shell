@@ -8,9 +8,9 @@ const meta = {
   tags: ["autodocs"],
   args: {
     onSubmit: (values: FormValues) => console.log(values),
-    animeItems: [
-      { id: 1, title: { english: "Naruto" } },
-      { id: 2, title: { english: "One Piece" } },
+    posts: [
+      { id: 1, title: "title1", body: "1" },
+      { id: 2, title: "title2", body: "2" },
     ],
   },
 } satisfies Meta<typeof FormComponent>;

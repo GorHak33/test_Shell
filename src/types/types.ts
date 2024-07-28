@@ -11,17 +11,15 @@ export interface AnimeTitle {
   english: string;
 }
 
-export interface Anime {
-  id: number | string;
-  title: {
-    english: string;
-    [key: string]: string;
-  };
+export interface typePost {
+  id: number;
+  title: string;
+  body: string;
 }
 
 export interface FormComponentProps {
   onSubmit: (values: FormValues, { resetForm }: any) => void;
-  animeItems: Anime[];
+  posts: typePost[];
   initialValues?: FormValues;
   isSubmitted: Boolean;
 }
